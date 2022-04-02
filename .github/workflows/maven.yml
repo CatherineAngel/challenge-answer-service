@@ -21,7 +21,7 @@ jobs:
       - name: Build with Maven
         # 这里maven的打包命令, 其他项目修改为对应的打包命令
         run: |
-          mvn clean && mvn compile && mvn package && start target
+          mvn clean && mvn compile && mvn package
           pwd
           ls
       - name: Test
