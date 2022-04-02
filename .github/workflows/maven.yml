@@ -22,37 +22,39 @@ jobs:
         # 这里maven的打包命令, 其他项目修改为对应的打包命令
         run: |
           mvn package
-      - name: Push Docker
-        run: |
-          docker login --username=${{ secrets.USERNAME }} --password ${{ secrets.PASSWORD }} registry.cn-shanghai.aliyuncs.com
-          docker build . -t ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER
-          docker push ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER
-          docker tag $(docker images ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER -q) ${{ secrets.REGISTRY }}:latest
-          docker push ${{ secrets.REGISTRY }}:latest
-
-
-
-
-  pull-docker:
-    needs: [build]
-    name: Pull Docker
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PWD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            docker stop $(docker ps --filter ancestor=${{ secrets.REGISTRY }} -q)
-            docker rm -f $(docker ps -a --filter ancestor=${{ secrets.REGISTRY }}:latest -q)
-            docker rmi -f $(docker images  ${{ secrets.REGISTRY }}:latest -q)
-            docker login --username=${{ secrets.USERNAME }} --password ${{ secrets.PASSWORD }} registry.cn-shanghai.aliyuncs.com
-            docker pull ${{ secrets.REGISTRY }}:latest
-            docker run -d -p 8060:8060 ${{ secrets.REGISTRY }}:latest
-# 上面暴露出了 8060端口, 填你项目端口即可 (没有端口可忽略)
-
-
-
+          pwd
+          ls
+#      - name: Push Docker
+#        run: |
+#          docker login --username=${{ secrets.USERNAME }} --password ${{ secrets.PASSWORD }} registry.cn-shanghai.aliyuncs.com
+#          docker build . -t ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER
+#          docker push ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER
+#          docker tag $(docker images ${{ secrets.REGISTRY }}:$GITHUB_RUN_NUMBER -q) ${{ secrets.REGISTRY }}:latest
+#          docker push ${{ secrets.REGISTRY }}:latest
+#
+#
+#
+#
+#  pull-docker:
+#    needs: [build]
+#    name: Pull Docker
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Deploy
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.USER }}
+#          password: ${{ secrets.PWD }}
+#          port: ${{ secrets.PORT }}
+#          script: |
+#            docker stop $(docker ps --filter ancestor=${{ secrets.REGISTRY }} -q)
+#            docker rm -f $(docker ps -a --filter ancestor=${{ secrets.REGISTRY }}:latest -q)
+#            docker rmi -f $(docker images  ${{ secrets.REGISTRY }}:latest -q)
+#            docker login --username=${{ secrets.USERNAME }} --password ${{ secrets.PASSWORD }} registry.cn-shanghai.aliyuncs.com
+#            docker pull ${{ secrets.REGISTRY }}:latest
+#            docker run -d -p 8060:8060 ${{ secrets.REGISTRY }}:latest
+## 上面暴露出了 8060端口, 填你项目端口即可 (没有端口可忽略)
+#
+#
+#
