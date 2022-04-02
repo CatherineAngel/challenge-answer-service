@@ -34,9 +34,9 @@ jobs:
         with:
           java-version: 1.8
       - name: Generate the package
-        run: mvn -B package --file pom.xml -Dmaven.test.skip=true
+        run: mvn -B install --file pom.xml -Dmaven.test.skip=true
       - name: 查看路径
-        run: ls ~/.m2/repository
+        run: ls ~/.m2/repository/com
 #      - name: Push Docker
 #        run: |
 #          docker login --username=${{ secrets.USERNAME }} --password ${{ secrets.PASSWORD }} registry.cn-shanghai.aliyuncs.com
