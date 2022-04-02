@@ -26,8 +26,10 @@ jobs:
           ls
       - name: Test
         run: |
-          ls ../
-          ls ../../
+          cd  ..
+          ls -al
+          find . -name *.jar
+
 #      - name: Push Docker
 #        run: |
 #          docker login --username=${{ secrets.USERNAME }} --password ${{ secrets.PASSWORD }} registry.cn-shanghai.aliyuncs.com
