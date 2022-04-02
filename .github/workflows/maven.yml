@@ -37,6 +37,17 @@ jobs:
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
       - name: 查看路径
         run: ls -al
+      - name: 推送jar包ssh
+        uses: kostya-ten/ssh-server-deploy@v4
+        with:
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PWD }}
+          scp_source: target/*
+          scp_target: /home/ca/test
+
+
 #      - name: Push Docker
 #        run: |
 #          docker login --username=${{ secrets.USERNAME }} --password ${{ secrets.PASSWORD }} registry.cn-shanghai.aliyuncs.com
