@@ -36,7 +36,7 @@ jobs:
       - name: Generate the package
         run: mvn -B install --file pom.xml -Dmaven.test.skip=true
       - name: 查看路径
-        run: ls ~/.m2/repository/com
+        run: ls ~/.m2/repository/com/lucifer
 #      - name: Push Docker
 #        run: |
 #          docker login --username=${{ secrets.USERNAME }} --password ${{ secrets.PASSWORD }} registry.cn-shanghai.aliyuncs.com
