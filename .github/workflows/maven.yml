@@ -21,7 +21,7 @@ jobs:
       - name: Build with Maven
         # 这里maven的打包命令, 其他项目修改为对应的打包命令
         run: |
-          mvn -B package --file pom.xml
+          mvn install:install-file -Dfile=../SocketApi-1.0.0.jar
           pwd
           ls
       - name: Test
