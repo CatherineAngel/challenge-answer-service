@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set up JDK 8
         # 这里使用java11的环境, 其他项目在github action中找到对应的语言环境就行
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v1
         with:
           java-version: 8
       - name: Build with Maven
