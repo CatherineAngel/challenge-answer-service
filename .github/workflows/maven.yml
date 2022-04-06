@@ -37,15 +37,15 @@ jobs:
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
       - name: 查看路径
         run: ls -al
-      - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          ARGS: "-rltgoDzvO --delete"
-          REMOTE_HOST: ${{ secrets.HOST }}
-          REMOTE_USER: ${{ secrets.USER }}
-          SOURCE: target/challengeanswerservice-0.0.1-SNAPSHOT.jar
-          TARGET: /home/ca/test
+      - name: deploy file to server
+        uses: wlixcc/SFTP-Deploy-Action@v1.0
+        with:
+          username: 'ca'   #ssh user name
+          server: ${{ secrets.host }} #引用之前创建好的secret
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} #引用之前创建好的secret
+          local_path: target/challengeanswerservice-0.0.1-SNAPSHOT.jar
+          remote_path: /home/ca/test
+
       - name: Deploy
         uses: appleboy/ssh-action@master # 使用ssh链接服务器
         with:
