@@ -37,11 +37,11 @@ jobs:
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
       - name: 查看路径
         run: ls -al
-      - name: SSH Server Deploy
-        uses: easingthemes/ssh-deploy@v2.1.6
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          ARGS: "-rltgoDzvO"
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-rltgoDzvO --delete"
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_USER: ${{ secrets.USER }}
           SOURCE: target/challengeanswerservice-0.0.1-SNAPSHOT.jar
