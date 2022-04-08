@@ -37,14 +37,17 @@ jobs:
         run: mvn -B package --file pom.xml -Dmaven.test.skip=true
       - name: 查看路径
         run: ls -al
-      - name: deploy file to server
-        uses: wlixcc/SFTP-Deploy-Action@v1.0
-        with:
-          username: 'ca'   #ssh user name
-          server: ${{ secrets.host }} #引用之前创建好的secret
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} #引用之前创建好的secret
-          local_path: target/challengeanswerservice-0.0.1-SNAPSHOT.jar
-          remote_path: /home/ca/test
+      - name: Deploy to Server # 第二步，rsync推文件
+        uses: AEnterprise/rsync-deploy@v1.0 # 使用别人包装好的步骤镜像
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }} # 引用配置，SSH私钥
+          ARGS: -avz --delete --exclude='*.pyc' # rsync参数，排除.pyc文件
+          SERVER_PORT: "22" # SSH端口
+          FOLDER: target/challengeanswerservice-0.0.1-SNAPSHOT.jar # 要推送的文件夹，路径相对于代码仓库的根目录
+          SERVER_IP: ${{ secrets.HOST }} # 引用配置，服务器的host名（IP或者域名domain.com）
+          USERNAME: ${{ secrets.USERNAME }} # 引用配置，服务器登录名
+          SERVER_DESTINATION: /home/ca/test # 部署到目标文件夹
+
 
       - name: Deploy
         uses: appleboy/ssh-action@master # 使用ssh链接服务器
