@@ -26,7 +26,7 @@ public class LoginController {
     @ApiOperation("登录认证接口")
     public String Login(UserInfoVo userInfoVo){
        // log.info("进入Login接口，参数为【{}】",userInfoVo);
-        return "Login success 触发";
+        return "Login success 触发dev";
     }
 
 }
