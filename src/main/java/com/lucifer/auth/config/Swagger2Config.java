@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
@@ -56,7 +57,7 @@ public class Swagger2Config extends WebMvcConfigurationSupport {
     }
     private ApiInfo apiInfo() {
         // 用ApiInfoBuilder进行定制
-        return new ApiInfoBuilder().title("***接口信息管理").description("方便快捷的接口文档管理")
+        return new ApiInfoBuilder().title("挑战答题接口信息管理").description("方便快捷的接口文档管理")
                 .contact(new Contact("lucifer", null, "13636836964@qq.com")).version("版本号:" + 1.0).build();
     }
     public static Predicate<RequestHandler> basePackage(final String basePackage) {
