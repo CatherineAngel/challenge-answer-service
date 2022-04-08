@@ -14,6 +14,17 @@
     <groupId>com.lucifer</groupId>
     <artifactId>challengeanswerservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
+    <distributionManagement>
+        <repository>
+            <!--必须与 settings.xml 的 id 一致-->
+            <id>luciferone-challenge-answer-ca</id>
+            <name>ca</name>
+            <url>https://luciferone-maven.pkg.coding.net/repository/challenge-answer/ca/</url>
+        </repository>
+    </distributionManagement>
+
+
     <name>challenge-answer-service</name>
     <description>challenge-answer-service</description>
     <properties>
