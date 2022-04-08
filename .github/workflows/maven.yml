@@ -46,28 +46,28 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
 
-      - name: Deploy to Server # 第二步，rsync推文件
-        uses: appleboy/scp-action@master # 使用别人包装好的步骤镜像
-        env:
-          KEY: ${{ secrets.DEPLOY_KEY }} # 引用配置，SSH私钥
-          PORT: "22" # SSH端口
-          USERNAME: ${{ secrets.USERNAME }} # 引用配置，服务器登录名
-          HOST: ${{ secrets.HOST }} # 引用配置，服务器的host名（IP或者域名domain.com）
-        with:
-          target: /home/ca/test   # 要推送的文件夹，路径相对于代码仓库的根目录
-          source: target/challengeanswerservice-0.0.1-SNAPSHOT.jar # 部署到目标文件夹
+#      - name: Deploy to Server # 第二步，rsync推文件
+#        uses: appleboy/scp-action@master # 使用别人包装好的步骤镜像
+#        env:
+#          KEY: ${{ secrets.DEPLOY_KEY }} # 引用配置，SSH私钥
+#          PORT: "22" # SSH端口
+#          USERNAME: ${{ secrets.USERNAME }} # 引用配置，服务器登录名
+#          HOST: ${{ secrets.HOST }} # 引用配置，服务器的host名（IP或者域名domain.com）
+#        with:
+#          target: /home/ca/test   # 要推送的文件夹，路径相对于代码仓库的根目录
+#          source: target/challengeanswerservice-0.0.1-SNAPSHOT.jar # 部署到目标文件夹
 
 
-      - name: Deploy
-        uses: appleboy/ssh-action@master # 使用ssh链接服务器
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PWD }}
-          port: ${{ secrets.PORT }}
-          script: | # 执行命令（运行到服务器）cd：要确保服务器有这个目录； wget：下载上一步的release到服务器； tar：解压； 安装依赖；启动服务
-            cd /home/ca/test
-            nohup java -jar challengeanswerservice-0.0.1-SNAPSHOT.jar
+#      - name: Deploy
+#        uses: appleboy/ssh-action@master # 使用ssh链接服务器
+#        with:
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.USER }}
+#          password: ${{ secrets.PWD }}
+#          port: ${{ secrets.PORT }}
+#          script: | # 执行命令（运行到服务器）cd：要确保服务器有这个目录； wget：下载上一步的release到服务器； tar：解压； 安装依赖；启动服务
+#            cd /home/ca/test
+#            nohup java -jar challengeanswerservice-0.0.1-SNAPSHOT.jar
 
 #      - name: Push Docker
 #        run: |
