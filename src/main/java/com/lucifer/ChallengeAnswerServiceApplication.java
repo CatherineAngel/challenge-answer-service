@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author ：yuz13
+ * @author ：yuz13sdfd
  * @date ：Created in 2022/4/2 11:32
  * @description：
  * @modified By：
@@ -15,5 +15,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ChallengeAnswerServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(ChallengeAnswerServiceApplication.class,args);
+      
     }
 }
