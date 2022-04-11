@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
@@ -31,16 +32,8 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
-public class Swagger2Config extends WebMvcConfigurationSupport {
-    @Override
-    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // 解决静态资源无法访问
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-        // 解决swagger无法访问
-        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        // 解决swagger的js文件无法访问
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
+public class Swagger2Config  {
+
     @Bean
     public Docket createRestApi() {
         ParameterBuilder ticketPar = new ParameterBuilder();
@@ -56,7 +49,7 @@ public class Swagger2Config extends WebMvcConfigurationSupport {
     }
     private ApiInfo apiInfo() {
         // 用ApiInfoBuilder进行定制
-        return new ApiInfoBuilder().title("***接口信息管理").description("方便快捷的接口文档管理")
+        return new ApiInfoBuilder().title("挑战答题接口信息管理").description("方便快捷的接口文档管理")
                 .contact(new Contact("lucifer", null, "13636836964@qq.com")).version("版本号:" + 1.0).build();
     }
     public static Predicate<RequestHandler> basePackage(final String basePackage) {
@@ -76,4 +69,5 @@ public class Swagger2Config extends WebMvcConfigurationSupport {
     }
     private static Optional<? extends Class<?>> declaringClass(RequestHandler input) {
         return Optional.fromNullable(input.declaringClass());
-    }}
+    }
+}
