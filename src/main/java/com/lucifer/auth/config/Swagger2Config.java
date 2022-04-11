@@ -32,7 +32,7 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
-public class Swagger2Config {
+public class Swagger2Config  {
 
     @Bean
     public Docket createRestApi() {
@@ -69,4 +69,5 @@ public class Swagger2Config {
     }
     private static Optional<? extends Class<?>> declaringClass(RequestHandler input) {
         return Optional.fromNullable(input.declaringClass());
-    }}
+    }
+}
